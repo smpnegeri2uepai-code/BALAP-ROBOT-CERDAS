@@ -555,12 +555,26 @@
         
         // --- LOGIKA GAME ---
 
-        function getNextQuestion() {
-            if (availableQuestions.length === 0) {
-                return ["Soal Habis! Kembali ke Lobi", "Error", "Error", "Error"]; 
-            }
-            return availableQuestions.pop(); 
-        }
+       // --- KODE BARU (Mengambil Soal Acak Tanpa Menghapus) ---
+function getNextQuestion() {
+    // Memastikan ada soal
+    if (availableQuestions.length === 0) {
+        // Jika soal habis, kita bisa mengulang lagi dari Fallback/Sheet
+        // Namun, jika kita ingin soal terus berputar, ini tidak perlu terjadi.
+        // Biarkan game berakhir hanya dari kondisi 'FINISH'
+        return ["Soal Habis! Kembali ke Lobi", "Error", "Error", "Error"]; 
+    }
+
+    // Ganti .pop() dengan pemilihan indeks acak
+    const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+    
+    // TIDAK menggunakan .pop() lagi. Cukup ambil data soalnya.
+    return availableQuestions[randomIndex]; 
+    
+    // Catatan: Jika Anda ingin soal yang sudah keluar tidak muncul lagi
+    // *sampai* semua soal keluar, logika akan lebih rumit.
+    // Tetapi untuk kebutuhan 'putar acak tanpa akhir', kode di atas adalah solusinya.
+}
 
         function generateRandomQuestion(player) {
             const questionData = getNextQuestion(); 
